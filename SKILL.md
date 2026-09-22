@@ -1,6 +1,6 @@
 ---
 name: dr-lyd
-description: Switch, stop, or check DR's live radio channels (P1-P8, regional P4/P5, LYD ekstra) playing via the DR Lyd Omarchy bar plugin. Use when the user asks to play/skift/switch radio or a DR channel by name (e.g. "skift til P1", "spil P3", "put on some radio", "hvad kører der på radioen", "sluk radioen").
+description: Switch, stop, or check DR's live radio channels (P1-P8, regional P4/P5, LYD ekstra) playing via the DR Lyd Omarchy bar plugin, and look up what's been played recently. Use when the user asks to play/skift/switch radio or a DR channel by name (e.g. "skift til P1", "spil P3", "put on some radio", "hvad kører der på radioen", "sluk radioen", "hvad er der spillet den sidste time", "playlist for p6").
 ---
 
 # DR Lyd
@@ -15,6 +15,7 @@ All via `~/.claude/skills/dr-lyd/bin/dr-lyd.sh`:
 - `dr-lyd.sh play <slug>` — switches to that channel (stops whatever's playing first).
 - `dr-lyd.sh stop` — stops playback.
 - `dr-lyd.sh status` — shows what's playing now (`slug<TAB>title`, or `stopped`).
+- `dr-lyd.sh playlist [slug] [minutes]` — recent tracks as `HH:MM<TAB>artist – title` lines, oldest first. `slug` defaults to whatever's currently playing (via `status`); `minutes` defaults to 60. Talk channels (P1, P2) and LYD ekstra have no playlist and print a note instead.
 
 ## Switching channel
 
@@ -27,6 +28,17 @@ Example: user says "skift til P1":
 ~/.claude/skills/dr-lyd/bin/dr-lyd.sh list       # confirm the exact slug, e.g. "p1"
 ~/.claude/skills/dr-lyd/bin/dr-lyd.sh play p1
 ```
+
+## Recently played
+
+For "hvad er der spillet den sidste time" / "what's been playing on P6" style questions, use `playlist` rather than `status` (which only has the current track):
+
+```bash
+~/.claude/skills/dr-lyd/bin/dr-lyd.sh playlist          # currently playing channel, last 60 min
+~/.claude/skills/dr-lyd/bin/dr-lyd.sh playlist p3 30     # P3, last 30 min
+```
+
+This fetches `dr.dk/lyd/playlister/<slug>` directly (same source the plugin itself uses for now-playing) — it does not go through the running shell, so it works even if nothing is currently playing, as long as a slug is given explicitly.
 
 ## Errors
 
