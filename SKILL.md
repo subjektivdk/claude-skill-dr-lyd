@@ -19,7 +19,7 @@ All via `~/.claude/skills/dr-lyd/bin/dr-lyd.sh`:
 
 ## Switching channel
 
-Channel slugs (P4/P5 regional especially) aren't fixed or guessable — **always run `dr-lyd.sh list` first** and match the user's request against the returned titles, rather than guessing a slug. A few well-known ones: `p1`, `p2`, `p3`, `p6beat` (P6 Beat), `p8jazz` (P8 Jazz), and DR's own LYD-ekstra channels. Regional P4 (by/egn) and P5 (landsdel) channels only show up in `list`.
+Channel slugs (P4/P5 regional especially) aren't fixed or guessable — **always run `dr-lyd.sh list` first** and match the user's request against the returned titles, rather than guessing a slug. A few well-known ones: `p1`, `p2`, `p3`, `p6beat` (P6 Beat), `p8jazz` (P8 Jazz), and DR's own LYD-ekstra channels. Regional P4 (city/area) and P5 (region) channels only show up in `list`.
 
 If `list` (or `play`) returns `loading channel directory, retry shortly`, the plugin hasn't fetched DR's channel directory yet — wait a couple of seconds and retry once.
 

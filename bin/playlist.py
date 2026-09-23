@@ -23,17 +23,17 @@ def main():
         with urllib.request.urlopen(req, timeout=10) as r:
             html = r.read().decode("utf-8", "replace")
     except Exception as e:
-        print(f"kunne ikke hente playliste: {e}", file=sys.stderr)
+        print(f"could not fetch playlist: {e}", file=sys.stderr)
         sys.exit(1)
 
     m = re.search(r'<script id="__NEXT_DATA__"[^>]*>(.*?)</script>', html, re.S)
     if not m:
-        print("kunne ikke finde playliste-data på siden", file=sys.stderr)
+        print("could not find playlist data on the page", file=sys.stderr)
         sys.exit(1)
     try:
         data = json.loads(m.group(1))
     except json.JSONDecodeError as e:
-        print(f"kunne ikke parse playliste-data: {e}", file=sys.stderr)
+        print(f"could not parse playlist data: {e}", file=sys.stderr)
         sys.exit(1)
 
     points = (data.get("props", {}).get("pageProps", {}) or {}).get("playlistIndexPoints") or []
@@ -61,7 +61,7 @@ def main():
 
     tracks.sort()
     if not tracks:
-        print(f"ingen numre fundet for {slug} i de sidste {minutes} min. (talekanal, eller ingen playliste)")
+        print(f"no tracks found for {slug} in the last {minutes} min (talk channel, or no playlist)")
         return
     for t, artist, title in tracks:
         local = t.astimezone()

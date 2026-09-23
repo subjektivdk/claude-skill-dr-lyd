@@ -39,7 +39,7 @@ case "$1" in
     if [[ -z $slug ]]; then
       status=$(omarchy-shell subjektivdk.dr-lyd status)
       slug="${status%%$'\t'*}"
-      [[ -n $slug && $slug != "stopped" ]] || { echo "ingen kanal spiller — angiv et slug" >&2; exit 1; }
+      [[ -n $slug && $slug != "stopped" ]] || { echo "no channel playing — specify a slug" >&2; exit 1; }
     fi
     python3 "$BIN_DIR/playlist.py" "$slug" "$minutes"
     ;;
